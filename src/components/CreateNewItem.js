@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 const initialState = {
   title: '',
   type: 'pro',
-  itemValue: 0,
+  itemValue: 10,
 }
 
 async function addItem (e, setData, onSubmit, data) {
@@ -26,11 +26,7 @@ const selectType = (e, setData, data, type) => {
 }
 
 const CreateNewItem = (props) => {
-  const [data, setData] = useState({})
-
-  if (data === {}) {
-    setData(initialState)
-  }
+  const [data, setData] = useState(initialState)
 
   return (
     <form>
