@@ -69,11 +69,11 @@ const FormAndList = (props) => {
       <div>
         {renderResult(winner)}
         <div>
-          <List title="Pros" items={pros}></List>
+          <List title="Pros" items={pros} itemOnClick={(itemIndex) => setPros(pros.splice(itemIndex - 1, 1))}></List>
           <ListTotal title="Pros total" value={totalPros}></ListTotal>
         </div>
         <div>
-          <List title="Cons" items={cons}></List>
+          <List title="Cons" items={cons} itemOnClick={(itemIndex) => setCons(cons.splice(itemIndex - 1, 1))}></List>
           <ListTotal title="Cons total" value={totalCons}></ListTotal>
         </div>
         {renderButton(setWinner, totalPros, totalCons)}

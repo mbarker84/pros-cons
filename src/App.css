@@ -22,3 +22,12 @@ button {
 .navigation {
 	padding: 1rem;
 }
+
+.list-item {
+	display: flex;
+}
+
+.list-item__button {
+	margin-left: auto;
+	background-color: tomato;
+}
