@@ -3,8 +3,6 @@ import CreateNewItem from './CreateNewItem'
 import List from './List'
 
 const onItemSubmit = (setPros, setCons, pros, cons, data) => {
-  console.log(data)
-
   if (data.type === 'pro') {
     setPros([...pros, data])
   }

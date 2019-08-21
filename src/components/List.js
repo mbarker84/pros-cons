@@ -3,7 +3,7 @@ import Item from './Item'
 
 const renderItems = (items) => {
   if (!items) return
-  return items.map((item, index) => <Item title={item.title} key={index} />)
+  return items.map((item, index) => <Item {...item} key={index} />)
 }
 
 const List = (props) => {

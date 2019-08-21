@@ -2,7 +2,7 @@ import React from 'react'
 
 const Item = (props) => {
   return (
-    <li>{props.title}</li>
+    <li>{props.title} - {props.itemValue}</li>
   )
 }
 

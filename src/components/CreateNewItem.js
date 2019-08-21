@@ -1,8 +1,22 @@
 import React, { useState } from 'react'
 
-const addItem = (e, onSubmit, data) => {
-  e.preventDefault()
-  onSubmit(data)
+const initialState = {
+  title: '',
+  type: 'pro',
+  itemValue: 0,
+}
+
+async function addItem (e, setData, onSubmit, data) {
+  await addItemPromise(e, onSubmit, data)
+  setData({ ...initialState })
+}
+
+const addItemPromise = (e, onSubmit, data) => {
+  return new Promise(resolve => {
+    e.preventDefault()
+    onSubmit(data)
+    resolve('resolved')
+  })
 }
 
 const selectType = (e, setData, data, type) => {
@@ -12,30 +26,34 @@ const selectType = (e, setData, data, type) => {
 }
 
 const CreateNewItem = (props) => {
-  const [data, setData] = useState(null)
+  const [data, setData] = useState({})
+
+  if (data === {}) {
+    setData(initialState)
+  }
 
   return (
     <form>
       <div>
         <label htmlFor="formAddItem">Add an item</label>
-        <input type="text" id="formAddItem" onChange={(event) => setData({ ...data, title: event.target.value })} />
+        <input type="text" id="formAddItem" onChange={(event) => setData({ ...data, title: event.target.value })} value={data.title} />
       </div>
       <div>
         <label htmlFor="formItemValue">Value</label>
-        <input type="number" id="formItemValue" />
+        <input type="number" id="formItemValue" onChange={(event) => setData({ ...data, itemValue: event.target.value })} value={data.itemValue} />
       </div>
       <fieldset>
         <legend>Category</legend>
         <div>
-          <input type="radio" id="formRadioPro" name="itemType" onChange={(e) => selectType(e, setData, data, 'pro')} />
+          <input type="radio" id="formRadioPro" name="itemType" onChange={(e) => selectType(e, setData, data, 'pro')} checked={data.type === 'pro'} />
           <label htmlFor="formRadioPro">Pro</label>
         </div>
         <div>
-          <input type="radio" id="formRadioCon" name="itemType" onChange={(e) => selectType(e, setData, data, 'con')} />
+          <input type="radio" id="formRadioCon" name="itemType" onChange={(e) => selectType(e, setData, data, 'con')} checked={data.type === 'con'} />
           <label htmlFor="formRadioCon">Con</label>
         </div>
       </fieldset>
-      <button type="submit" id="formSubmitItem" onClick={(e) => addItem(e, props.onSubmit, data)}>Add item</button>
+      <button type="submit" id="formSubmitItem" onClick={(e) => addItem(e, setData, props.onSubmit, data)}>Add item</button>
     </form>
   )
 }
