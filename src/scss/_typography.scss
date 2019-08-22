@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script:700|PT+Sans&display=swap');
+
+body,
+button {
+	font-family: 'PT Sans', serif;
+}
+
+h1 {
+	font-family: 'Dancing Script', cursive;
+
+	@media (min-width: $sm) {
+		font-size: 5.8rem;
+	}
+}
+
+button,
+label {
+	font-weight: 700;
+}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import './App.css'
+import './App.scss'
 import Header from './components/Header'
+import ListTitle from './components/ListTitle'
 import Navigation from './components/Navigation'
 import FormAndList from './components/FormAndList'
 
@@ -15,10 +16,13 @@ const App = () => {
 
   return (
     <div className="app">
-      <Header section={section}></Header>
-      {renderFormAndList(section)}
-      <Navigation section={section} onClickRight={() => setSection(section + 1)} onClickLeft={() => setSection(section - 1)}></Navigation>
-      <p>{section}</p>
+      <Header />
+      <main>
+        <ListTitle section={section} />
+        {renderFormAndList(section)}
+        <Navigation section={section} onClickRight={() => setSection(section + 1)} onClickLeft={() => setSection(section - 1)}></Navigation>
+        <p>{section}</p>
+      </main>
     </div>
   )
 }

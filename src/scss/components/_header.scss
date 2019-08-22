@@ -1,0 +1,35 @@
+header {
+	text-align: center;
+}
+
+.header__links {
+	text-align: right;
+	padding: 0.5rem 1rem;
+	background-color: darken($bg, 3%);
+
+	> *:first-child {
+		margin-right: 1rem;
+	}
+
+	@media screen and (min-width: $sm) {
+		padding: 0.5rem 2rem;
+	}
+}
+
+.header__title {
+	color: rgb(115, 192, 192);
+
+	span {
+		color: lighten($bg, 40%);
+	}
+}
+
+.header__content {
+	max-width: $wrapper;
+	margin: 0 auto;
+	padding: 0 2rem;
+}
+
+.header__inner {
+	border-bottom: 0.2rem dashed lighten($bg, 40%);
+}
