@@ -34,7 +34,7 @@ const ListTitle = (props) => {
 
   return (
     <div className="list-title">
-      <h2>{getTitle(titleSubmitted, title)}</h2>
+      <h2 class="list-title__heading">{getTitle(titleSubmitted, title)}</h2>
       {renderForm(titleSubmitted, setTitle, setTitleSubmitted)}
       {renderSuccess(titleSubmitted, props.section)}
     </div>

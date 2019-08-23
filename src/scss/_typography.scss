@@ -5,6 +5,14 @@ button {
 	font-family: 'PT Sans', serif;
 }
 
+body {
+	font-size: 1.2rem;
+
+	@media (min-width: $lg) {
+		font-size: 1.3rem;
+	}
+}
+
 h1 {
 	font-family: 'Dancing Script', cursive;
 

@@ -12,18 +12,26 @@
 }
 
 .list-title__input {
-	display: block;
 	width: 100%;
 	padding: 1rem;
-	background-color: darken($bg, 3%);
-	border: none;
-	border-bottom: 0.2rem solid lighten($bg, 50%);
+	border: 0.2rem solid lighten($bg, 50%);
+	border-radius: 0.8rem;
 	font-size: 1.4rem;
 	margin-bottom: 2rem;
+
+	&:focus {
+		border-color: $title;
+	}
 
 	@media (min-width: $sm) {
 		font-size: 2rem;
 		color: $text;
+		margin-bottom: 3rem;
+	}
+}
+
+.list-title__heading {
+	@media (min-width: $sm) {
 		margin-bottom: 3rem;
 	}
 }

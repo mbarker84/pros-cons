@@ -6,7 +6,6 @@ body {
 	background-color: $bg;
 	color: $text;
 	min-height: 100vh;
-	font-size: 1.2rem;
 }
 
 button {
@@ -16,6 +15,17 @@ button {
 	padding: 0.5rem 1rem;
 	font-size: 1.2rem;
 	cursor: pointer;
+	transition: background-color 200ms;
+
+	&:hover,
+	&:focus {
+		background-color: darken($highlight, 20%);
+	}
+
+	@media screen and (min-width: $lg) {
+		font-size: 1.3rem;
+		padding: 0.75rem 2rem;
+	}
 }
 
 main {
@@ -26,9 +36,38 @@ main {
 
 a {
 	color: $highlight;
+	transition: color 200ms;
+
+	&:hover,
+	&:focus {
+		color: darken($highlight, 20%);
+	}
 }
 
-label {
+input[type='text'],
+input[type='number'] {
+	display: block;
+	width: 100%;
+	padding: 0.5rem 1rem;
+	border: none;
+	background-color: darken($bg, 3%);
+	border: 0.15rem solid lighten($bg, 40%);
+	color: $text;
+	border-radius: 0.5rem;
+
+	&:focus {
+		border-color: $title;
+	}
+
+	@media screen and (min-width: $lg) {
+		font-size: 1.4rem;
+		padding: 1rem 1rem;
+	}
+}
+
+label,
+legend {
+	display: block;
 	margin-bottom: 0.5rem;
 	color: lighten($bg, 60%);
 }

@@ -29,7 +29,7 @@ const CreateNewItem = (props) => {
   const [data, setData] = useState(initialState)
 
   return (
-    <form>
+    <form className="form">
       <div>
         <label htmlFor="formAddItem">Add an item</label>
         <input type="text" id="formAddItem" onChange={(event) => setData({ ...data, title: event.target.value })} value={data.title} />
@@ -38,18 +38,18 @@ const CreateNewItem = (props) => {
         <label htmlFor="formItemValue">Value</label>
         <input type="number" id="formItemValue" onChange={(event) => setData({ ...data, itemValue: event.target.value })} value={data.itemValue} />
       </div>
-      <fieldset>
+      <fieldset className="form__radio-section">
         <legend>Category</legend>
-        <div>
+        <div className="form__rbutton-group">
           <input type="radio" id="formRadioPro" name="itemType" onChange={(e) => selectType(e, setData, data, 'pro')} checked={data.type === 'pro'} />
           <label htmlFor="formRadioPro">Pro</label>
         </div>
-        <div>
+        <div className="form__rbutton-group">
           <input type="radio" id="formRadioCon" name="itemType" onChange={(e) => selectType(e, setData, data, 'con')} checked={data.type === 'con'} />
           <label htmlFor="formRadioCon">Con</label>
         </div>
       </fieldset>
-      <button type="submit" id="formSubmitItem" onClick={(e) => addItem(e, setData, props.onSubmit, data)}>Add item</button>
+      <button className="form__button" type="submit" id="formSubmitItem" onClick={(e) => addItem(e, setData, props.onSubmit, data)}>Add item</button>
     </form>
   )
 }
