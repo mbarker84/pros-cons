@@ -38,8 +38,10 @@ const CreateNewItem = (props) => {
         <label htmlFor="formItemValue">Value</label>
         <input type="number" id="formItemValue" onChange={(event) => setData({ ...data, itemValue: event.target.value })} value={data.itemValue} />
       </div>
-      <button className="form__button" type="submit" id="formSubmitItem" onClick={(e) => addItem(e, setData, props.onSubmit, data, 'pro')}>Add to pros</button>
-      <button className="form__button" type="submit" id="formSubmitItem" onClick={(e) => addItem(e, setData, props.onSubmit, data, 'con')}>Add to cons</button>
+      <div className="form__buttons">
+        <button className="form__button" type="submit" id="formSubmitItem" onClick={(e) => addItem(e, setData, props.onSubmit, data, 'pro')}>Add to pros</button>
+        <button className="form__button" type="submit" id="formSubmitItem" onClick={(e) => addItem(e, setData, props.onSubmit, data, 'con')}>Add to cons</button>
+      </div>
     </form>
   )
 }

@@ -1,9 +1,8 @@
 .list-title {
 	text-align: center;
-
-	@media (min-width: $sm) {
-		padding: 2rem 0;
-	}
+	max-width: $wrapper;
+	margin: 0 auto;
+	padding: 2rem;
 }
 
 .list-title__label {

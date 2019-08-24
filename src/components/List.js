@@ -11,8 +11,11 @@ const List = (props) => {
 
   return (
     <div>
-      <h2>{props.title}</h2>
-      <ul>
+      <h2 className="list__heading">
+        <span>{props.title}</span>
+        <span className="list__total">{props.value}</span>
+      </h2>
+      <ul className="list__list">
         {renderItems(items, itemOnClick)}
       </ul>
     </div>

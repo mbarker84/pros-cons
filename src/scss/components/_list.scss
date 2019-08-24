@@ -1,0 +1,21 @@
+.list__list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.list__wrapper {
+	@media (min-width: $lg) {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-gap: 2rem;
+	}
+}
+
+.list__heading {
+	display: flex;
+}
+
+.list__total {
+	margin-left: auto;
+}

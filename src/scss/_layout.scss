@@ -1,0 +1,9 @@
+.wrapper {
+	max-width: $wrapper;
+	margin: 0 auto;
+	padding: 0 2rem;
+}
+
+.wrapper--large {
+	max-width: 85rem;
+}

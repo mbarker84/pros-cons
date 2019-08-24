@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import CreateNewItem from './CreateNewItem'
 import List from './List'
-import ListTotal from './ListTotal'
 
 const onItemSubmit = (setPros, setCons, pros, cons, data) => {
   if (data.type === 'pro') {
@@ -54,7 +53,9 @@ const renderResult = (winner) => {
 const renderCreate = (setPros, setCons, pros, cons, props) => {
   if (props.section === 1) {
     return (
-      <CreateNewItem onSubmit={(data) => onItemSubmit(setPros, setCons, pros, cons, data)}></CreateNewItem>
+      <div className="wrapper">
+        <CreateNewItem onSubmit={(data) => onItemSubmit(setPros, setCons, pros, cons, data)}></CreateNewItem>
+      </div>
     )
   }
 }
@@ -74,15 +75,15 @@ const FormAndList = (props) => {
   return (
     <div>
       {renderCreate(setPros, setCons, pros, cons, props)}
-      <div>
+      <div className="wrapper wrapper--large">
         {renderResult(winner)}
-        <div>
-          <List title="Pros" items={pros} itemOnClick={(itemIndex) => setPros(removeItem(pros, itemIndex))}></List>
-          <ListTotal title="Pros total" value={totalPros}></ListTotal>
-        </div>
-        <div>
-          <List title="Cons" items={cons} itemOnClick={(itemIndex) => setCons(removeItem(pros, itemIndex))}></List>
-          <ListTotal title="Cons total" value={totalCons}></ListTotal>
+        <div className="list__wrapper">
+          <div>
+            <List title="Pros" value={totalPros} items={pros} itemOnClick={(itemIndex) => setPros(removeItem(pros, itemIndex))}></List>
+          </div>
+          <div>
+            <List title="Cons" value={totalCons} items={cons} itemOnClick={(itemIndex) => setCons(removeItem(pros, itemIndex))}></List>
+          </div>
         </div>
         {renderButton(setWinner, totalPros, totalCons, props)}
       </div>

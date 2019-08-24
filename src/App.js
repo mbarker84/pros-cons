@@ -10,6 +10,16 @@ const renderFormAndList = (section, setSection) => {
   }
 }
 
+const renderResetButton = (section, setSection) => {
+  if (section > 0) {
+    return (
+      <div className="wrapper wrapper--large">
+        <button type="reset" onClick={() => setSection(0)}>Start again</button>
+      </div>
+    )
+  }
+}
+
 const App = () => {
   const [section, setSection] = useState(0)
 
@@ -19,7 +29,7 @@ const App = () => {
       <main>
         <ListTitle section={section} onSubmit={() => setSection(section + 1)} />
         {renderFormAndList(section, setSection)}
-        <p>{section}</p>
+        {renderResetButton(section, setSection)}
       </main>
     </div>
   )
