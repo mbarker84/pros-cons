@@ -2,12 +2,11 @@ import React, { useState } from 'react'
 import './App.scss'
 import Header from './components/Header'
 import ListTitle from './components/ListTitle'
-import Navigation from './components/Navigation'
 import FormAndList from './components/FormAndList'
 
-const renderFormAndList = (section) => {
-  if (section === 1) {
-    return <FormAndList></FormAndList>
+const renderFormAndList = (section, setSection) => {
+  if (section > 0) {
+    return <FormAndList section={section} onSubmit={() => setSection(2)}></FormAndList>
   }
 }
 
@@ -18,9 +17,8 @@ const App = () => {
     <div className="app">
       <Header />
       <main>
-        <ListTitle section={section} />
-        {renderFormAndList(section)}
-        <Navigation section={section} onClickRight={() => setSection(section + 1)} onClickLeft={() => setSection(section - 1)}></Navigation>
+        <ListTitle section={section} onSubmit={() => setSection(section + 1)} />
+        {renderFormAndList(section, setSection)}
         <p>{section}</p>
       </main>
     </div>

@@ -1,15 +1,20 @@
 import React, { useState } from 'react'
 
-const getTitle = (titleSubmitted, title) => titleSubmitted ? title : 'First, let’s add a title for your list'
+const renderTitle = (title, titleSubmitted) => {
+  if (title && titleSubmitted) {
+    return <h2 className="list-title__heading">{title}</h2>
+  }
+}
 
-const renderForm = (titleSubmitted, setTitle, setTitleSubmitted) => {
-  if (!titleSubmitted) {
+const renderForm = (setTitle, setTitleSubmitted, props) => {
+  if (props.section === 0) {
     return (
       <form className="list-title__form">
         <label className="list-title__label" htmlFor="formTitle">List title</label>
         <input className="list-title__input" type="text" id="formTitle" onChange={(event) => setTitle(event.target.value)} />
         <button type="submit" onClick={(e) => {
           e.preventDefault()
+          props.onSubmit()
           setTitleSubmitted(true)
         }}>Add title</button>
       </form>
@@ -17,15 +22,12 @@ const renderForm = (titleSubmitted, setTitle, setTitleSubmitted) => {
   }
 }
 
-const renderSuccess = (titleSubmitted, section) => {
-  if (titleSubmitted && section === 0) {
-    return (
-      <div>
-        <p>Title successfully added <span role="img" aria-label="check">✔️</span></p>
-        <p>Now let’s create our pros and cons list!</p>
-      </div>
-    )
+const getText = (section) => {
+  if (section === 1) {
+    return  'Add items to your pros and cons list'
   }
+
+  return 'First, let’s add a title for your list'
 }
 
 const ListTitle = (props) => {
@@ -34,9 +36,9 @@ const ListTitle = (props) => {
 
   return (
     <div className="list-title">
-      <h2 class="list-title__heading">{getTitle(titleSubmitted, title)}</h2>
-      {renderForm(titleSubmitted, setTitle, setTitleSubmitted)}
-      {renderSuccess(titleSubmitted, props.section)}
+      {renderTitle(title, titleSubmitted)}
+      <p class="list-title__text">{getText(props.section)}</p>
+      {renderForm(setTitle, setTitleSubmitted, props)}
     </div>
   )
 }

@@ -14,19 +14,23 @@ const onItemSubmit = (setPros, setCons, pros, cons, data) => {
 }
 
 const calculateTotal = (listItems) => {
-  if (!listItems.length) return 0
+  if (!listItems || !listItems.length) return 0
   if (listItems.length === 1) return listItems[0].itemValue
   return listItems.reduce((acc, curr) => parseInt(acc.itemValue) + parseInt(curr.itemValue))
 }
 
-const renderButton = (setWinner, pros, cons) => {
+const renderButton = (setWinner, pros, cons, props) => {
   const winner = pros > cons ? 'pros' : cons < pros ? 'cons' : 'equal'
-  return (
-    <button type="submit" onClick={(e) => {
-      e.preventDefault()
-      setWinner(winner)
-    }}>Get the result</button>
-  )
+
+  if (props.section === 1) {
+    return (
+      <button type="submit" onClick={(e) => {
+        e.preventDefault()
+        setWinner(winner)
+        props.onSubmit()
+      }}>Get the result</button>
+    )
+  }
 }
 
 const renderResult = (winner) => {
@@ -47,12 +51,16 @@ const renderResult = (winner) => {
   }
 }
 
-const renderCreate = (setPros, setCons, pros, cons, winner) => {
-  if (!winner) {
+const renderCreate = (setPros, setCons, pros, cons, props) => {
+  if (props.section === 1) {
     return (
       <CreateNewItem onSubmit={(data) => onItemSubmit(setPros, setCons, pros, cons, data)}></CreateNewItem>
     )
   }
+}
+
+const removeItem = (array, itemIndex) => {
+  return array.filter((item, index) => index !== itemIndex)
 }
 
 const FormAndList = (props) => {
@@ -65,18 +73,18 @@ const FormAndList = (props) => {
 
   return (
     <div>
-      {renderCreate(setPros, setCons, pros, cons, winner)}
+      {renderCreate(setPros, setCons, pros, cons, props)}
       <div>
         {renderResult(winner)}
         <div>
-          <List title="Pros" items={pros} itemOnClick={(itemIndex) => setPros(pros.splice(itemIndex - 1, 1))}></List>
+          <List title="Pros" items={pros} itemOnClick={(itemIndex) => setPros(removeItem(pros, itemIndex))}></List>
           <ListTotal title="Pros total" value={totalPros}></ListTotal>
         </div>
         <div>
-          <List title="Cons" items={cons} itemOnClick={(itemIndex) => setCons(cons.splice(itemIndex - 1, 1))}></List>
+          <List title="Cons" items={cons} itemOnClick={(itemIndex) => setCons(removeItem(pros, itemIndex))}></List>
           <ListTotal title="Cons total" value={totalCons}></ListTotal>
         </div>
-        {renderButton(setWinner, totalPros, totalCons)}
+        {renderButton(setWinner, totalPros, totalCons, props)}
       </div>
     </div>
   )
