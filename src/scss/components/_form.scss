@@ -1,8 +1,11 @@
 .form {
+	margin-bottom: 2rem;
+
 	@media (min-width: $lg) {
 		display: grid;
 		grid-template-columns: 3fr 1fr;
 		grid-gap: 2rem;
+		margin-bottom: 4rem;
 	}
 }
 

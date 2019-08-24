@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import Item from './Item'
 
-const renderItems = (items, itemOnClick) => {
+const renderItems = (items, itemOnClick, section) => {
   if (!items) return
-  return items.map((item, index) => <Item {...item} key={index} itemOnClick={itemOnClick} index={index} />)
+  return items.map((item, index) => <Item {...item} section={section} key={index} itemOnClick={itemOnClick} index={index} />)
 }
 
 const List = (props) => {
-  const { items, itemOnClick } = props
+  const { items, itemOnClick, section } = props
 
   return (
     <div>
@@ -16,7 +16,7 @@ const List = (props) => {
         <span className="list__total">{props.value}</span>
       </h2>
       <ul className="list__list">
-        {renderItems(items, itemOnClick)}
+        {renderItems(items, itemOnClick, section)}
       </ul>
     </div>
   )

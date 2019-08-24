@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import CreateNewItem from './CreateNewItem'
 import List from './List'
+import ListTitle from './ListTitle'
 
 const onItemSubmit = (setPros, setCons, pros, cons, data) => {
   if (data.type === 'pro') {
@@ -12,8 +13,9 @@ const onItemSubmit = (setPros, setCons, pros, cons, data) => {
   }
 }
 
-const calculateTotal = (listItems) => {
+const calculateTotal = (listItems, section) => {
   if (!listItems || !listItems.length) return 0
+  if (section === 0) return 0
   if (listItems.length === 1) return listItems[0].itemValue
   return listItems.reduce((acc, curr) => parseInt(acc.itemValue) + parseInt(curr.itemValue))
 }
@@ -32,10 +34,12 @@ const renderButton = (setWinner, pros, cons, props) => {
   }
 }
 
-const renderResult = (winner) => {
+const renderResult = (winner, section) => {
+  if (section !== 2) return
+
   if (winner === 'equal') {
     return (
-      <div>
+      <div className="wrapper">
         <h3>The lists are equal</h3>
       </div>
     )
@@ -43,7 +47,7 @@ const renderResult = (winner) => {
 
   if (winner) {
     return (
-      <div>
+      <div className="wrapper">
         <h3>The winner is {winner}</h3>
       </div>
     )
@@ -64,29 +68,42 @@ const removeItem = (array, itemIndex) => {
   return array.filter((item, index) => index !== itemIndex)
 }
 
-const FormAndList = (props) => {
-  const [pros, setPros] = useState([])
-  const [cons, setCons] = useState([])
-  const [winner, setWinner] = useState(null)
-
-  const totalPros = calculateTotal(pros)
-  const totalCons = calculateTotal(cons)
-
-  return (
-    <div>
-      {renderCreate(setPros, setCons, pros, cons, props)}
+const renderList = (section, pros, cons, totalPros, totalCons, setPros, setCons) => {
+  if (section > 0) {
+    return (
       <div className="wrapper wrapper--large">
-        {renderResult(winner)}
         <div className="list__wrapper">
           <div>
-            <List title="Pros" value={totalPros} items={pros} itemOnClick={(itemIndex) => setPros(removeItem(pros, itemIndex))}></List>
+            <List title="Pros" value={totalPros} items={pros} section={section} itemOnClick={(itemIndex) => setPros(removeItem(pros, itemIndex))}></List>
           </div>
           <div>
             <List title="Cons" value={totalCons} items={cons} itemOnClick={(itemIndex) => setCons(removeItem(pros, itemIndex))}></List>
           </div>
         </div>
-        {renderButton(setWinner, totalPros, totalCons, props)}
       </div>
+    )
+  }
+}
+
+const FormAndList = (props) => {
+  const [pros, setPros] = useState([])
+  const [cons, setCons] = useState([])
+  const [winner, setWinner] = useState(null)
+
+  const { section, onSubmit } = props
+
+  const totalPros = calculateTotal(pros, section)
+  const totalCons = calculateTotal(cons, section)
+
+  const listHasItems = totalPros > 0 || totalCons > 0
+
+  return (
+    <div>
+      <ListTitle section={section} onSubmit={onSubmit} shouldShowText={listHasItems} />
+      {renderCreate(setPros, setCons, pros, cons, props)}
+      {renderResult(winner, section)}
+      {renderList(section, pros, cons, totalPros, totalCons, setPros, setCons)}
+      {renderButton(setWinner, totalPros, totalCons, props)}
     </div>
   )
 }

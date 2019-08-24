@@ -17,11 +17,15 @@ h1 {
 	font-family: 'Dancing Script', cursive;
 
 	@media (min-width: $sm) {
-		font-size: 5.8rem;
+		font-size: 3.5rem;
 	}
 }
 
 button,
 label {
 	font-weight: 700;
+}
+
+p {
+	line-height: 1.5;
 }
