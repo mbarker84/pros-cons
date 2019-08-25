@@ -42,3 +42,25 @@ input.list-title__input {
 		font-size: 1.6rem;
 	}
 }
+
+/* Transition */
+.list-title__text-block-enter {
+	opacity: 0;
+	transform: scaleY(0.9);
+}
+
+.list-title__text-block-enter-active {
+	opacity: 1;
+	transform: scaleY(1);
+	transition: opacity 300ms, transform 300ms;
+}
+
+.list-title__text-block-exit {
+	opacity: 1;
+}
+
+.list-title__text-block-exit-active {
+	opacity: 0;
+	transform: scaleY(0.9);
+	transition: opacity 300ms, transform 300ms;
+}

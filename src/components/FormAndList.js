@@ -17,20 +17,32 @@ const calculateTotal = (listItems, section) => {
   if (!listItems || !listItems.length) return 0
   if (section === 0) return 0
   if (listItems.length === 1) return listItems[0].itemValue
-  return listItems.reduce((acc, curr) => parseInt(acc.itemValue) + parseInt(curr.itemValue))
+  return listItems.reduce((acc, curr) => parseInt(acc) + parseInt(curr.itemValue || 10), 0)
 }
 
-const renderButton = (setWinner, pros, cons, props) => {
+const submitButtonGetResult = (e, props, winner, setWinner) => {
+  e.preventDefault()
+  setWinner(winner)
+  props.onSubmit()
+}
+
+const renderButton = (setWinner, pros, cons, props, resetForm) => {
   const winner = pros > cons ? 'pros' : cons < pros ? 'cons' : 'equal'
+
+  if (props.section === 0) return
 
   if (props.section === 1) {
     return (
       <div className="wrapper form__result-button-wrapper">
-        <button type="submit" onClick={(e) => {
-          e.preventDefault()
-          setWinner(winner)
-          props.onSubmit()
-        }}>Get the result</button>
+        <button type="submit" onClick={(e) => submitButtonGetResult(e, props, winner, setWinner)}>Get the result</button>
+      </div>
+    )
+  }
+
+  if (props.section === 2) {
+    return (
+      <div className="wrapper form__result-button-wrapper">
+        <button type="reset" onClick={resetForm}>Start again</button>
       </div>
     )
   }
@@ -94,7 +106,7 @@ const FormAndList = (props) => {
   const [cons, setCons] = useState([])
   const [winner, setWinner] = useState(null)
 
-  const { section, onSubmit } = props
+  const { section, onSubmit, resetForm } = props
 
   const totalPros = calculateTotal(pros, section)
   const totalCons = calculateTotal(cons, section)
@@ -107,7 +119,7 @@ const FormAndList = (props) => {
       {renderCreate(setPros, setCons, pros, cons, props)}
       {renderResult(winner, section)}
       {renderList(section, pros, cons, totalPros, totalCons, setPros, setCons)}
-      {renderButton(setWinner, totalPros, totalCons, props)}
+      {renderButton(setWinner, pros, cons, props, resetForm)}
     </div>
   )
 }

@@ -22,7 +22,7 @@ const List = (props) => {
         <span>{props.title}</span>
         <span className="list__total">{props.value}</span>
       </h2>
-      <TransitionGroup transitionName="list__transition" className="list__list" component="ul">
+      <TransitionGroup transitionname="list__transition" className="list__list" component="ul">
         {renderItems(items, itemOnClick, section)}
       </TransitionGroup>
     </div>
