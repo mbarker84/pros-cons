@@ -19,12 +19,6 @@ const addItemPromise = (e, onSubmit, data, type) => {
   })
 }
 
-const selectType = (e, setData, data, type) => {
-  if (e.target.value === 'on') {
-    setData({ ...data, type })
-  }
-}
-
 const CreateNewItem = (props) => {
   const [data, setData] = useState(initialState)
 
@@ -36,7 +30,7 @@ const CreateNewItem = (props) => {
       </div>
       <div>
         <label htmlFor="formItemValue">Value</label>
-        <input type="number" id="formItemValue" onChange={(event) => setData({ ...data, itemValue: event.target.value })} value={data.itemValue} />
+        <input type="number" id="formItemValue" onChange={(event) => setData({ ...data, itemValue: event.target.value })} value={data.itemValue} min="0" max="10" />
       </div>
       <div className="form__buttons">
         <button className="form__button" type="submit" id="formSubmitItem" onClick={(e) => addItem(e, setData, props.onSubmit, data, 'pro')}>Add to pros</button>

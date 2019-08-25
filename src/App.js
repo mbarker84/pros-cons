@@ -4,7 +4,7 @@ import Header from './components/Header'
 import FormAndList from './components/FormAndList'
 
 const renderResetButton = (section, setSection) => {
-  if (section > 0) {
+  if (section === 2) {
     return (
       <div className="wrapper wrapper--large">
         <button type="reset" onClick={() => setSection(0)}>Start again</button>

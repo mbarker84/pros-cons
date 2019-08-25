@@ -25,11 +25,13 @@ const renderButton = (setWinner, pros, cons, props) => {
 
   if (props.section === 1) {
     return (
-      <button type="submit" onClick={(e) => {
-        e.preventDefault()
-        setWinner(winner)
-        props.onSubmit()
-      }}>Get the result</button>
+      <div className="wrapper form__result-button-wrapper">
+        <button type="submit" onClick={(e) => {
+          e.preventDefault()
+          setWinner(winner)
+          props.onSubmit()
+        }}>Get the result</button>
+      </div>
     )
   }
 }
@@ -39,16 +41,18 @@ const renderResult = (winner, section) => {
 
   if (winner === 'equal') {
     return (
-      <div className="wrapper">
-        <h3>The lists are equal</h3>
+      <div className="wrapper result">
+        <h3 className="result__heading">Result:</h3>
+        <p className="result__text">The lists are equal. Follow your heart.</p>
       </div>
     )
   }
 
   if (winner) {
     return (
-      <div className="wrapper">
-        <h3>The winner is {winner}</h3>
+      <div className="wrapper result">
+        <h3 className="result__heading">Result:</h3>
+        <p className="result__text">The winner is <span>{winner}</span>.</p>
       </div>
     )
   }
@@ -77,7 +81,7 @@ const renderList = (section, pros, cons, totalPros, totalCons, setPros, setCons)
             <List title="Pros" value={totalPros} items={pros} section={section} itemOnClick={(itemIndex) => setPros(removeItem(pros, itemIndex))}></List>
           </div>
           <div>
-            <List title="Cons" value={totalCons} items={cons} itemOnClick={(itemIndex) => setCons(removeItem(pros, itemIndex))}></List>
+            <List title="Cons" value={totalCons} items={cons} section={section} itemOnClick={(itemIndex) => setCons(removeItem(pros, itemIndex))}></List>
           </div>
         </div>
       </div>

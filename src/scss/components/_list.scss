@@ -1,3 +1,18 @@
+.list {
+	padding: 1rem;
+	background-color: lighten($bg, 80%);
+	box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.9);
+	min-height: 20rem;
+	color: $bg;
+	border-radius: 0.09rem;
+	margin-bottom: 1rem;
+
+	@media (min-width: $sm) {
+		padding: 1rem 2rem;
+		margin-bottom: 3rem;
+	}
+}
+
 .list__list {
 	margin: 0;
 	padding: 0;
@@ -14,6 +29,18 @@
 
 .list__heading {
 	display: flex;
+	align-items: baseline;
+	border-bottom: 0.2rem solid $bg;
+	margin: 0;
+
+	span:first-child {
+		font-family: 'Dancing Script', cursive;
+		font-size: 2.5rem;
+	}
+
+	@media (min-width: $lg) {
+		padding: 0.5rem 0;
+	}
 }
 
 .list__total {
