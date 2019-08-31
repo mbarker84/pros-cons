@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
 
-const getTitle = (title, titleSubmitted) => {
-  return title && titleSubmitted ? title : 'Welcome to Pros & Cons!'
+const getTitle = (title, section) => {
+  return title && section > 0 ? title : 'Welcome to Pros & Cons!'
 }
 
 const renderForm = (setTitle, setTitleSubmitted, props) => {
@@ -23,7 +23,6 @@ const renderForm = (setTitle, setTitleSubmitted, props) => {
 
 const renderText = (section, shouldShowText) => {
   if (section >= 2) return
-  // if (shouldShowText) return
 
   let text = 'This app helps you make decisions by weighing up the pros and cons. First, let’s add a title for your list'
 
@@ -46,7 +45,7 @@ const ListTitle = (props) => {
 
   return (
     <div className="list-title">
-      <h2 className="list-title__heading">{getTitle(title, titleSubmitted)}</h2>
+      <h2 className="list-title__heading">{getTitle(title, section)}</h2>
       {renderText(section, shouldShowText)}
       {renderForm(setTitle, setTitleSubmitted, props)}
     </div>

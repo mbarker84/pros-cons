@@ -17,41 +17,47 @@ const calculateTotal = (listItems, section) => {
   if (!listItems || !listItems.length) return 0
   if (section === 0) return 0
   if (listItems.length === 1) return listItems[0].itemValue
-  return listItems.reduce((acc, curr) => parseInt(acc) + parseInt(curr.itemValue || 10), 0)
+  const value = listItems.reduce((acc, curr) => parseInt(acc) + parseInt(curr.itemValue), 0)
+  return value
 }
 
-const submitButtonGetResult = (e, props, winner, setWinner) => {
+const submitButtonGetResult = (e, props) => {
   e.preventDefault()
-  setWinner(winner)
   props.onSubmit()
 }
 
-const renderButton = (setWinner, pros, cons, props, resetForm) => {
-  const winner = pros > cons ? 'pros' : cons < pros ? 'cons' : 'equal'
+const clear = (resetForm, setPros, setCons) => {
+  setPros(initialState.pros)
+  setCons(initialState.cons)
+  resetForm()
+}
 
+const renderButton = (props) => {
   if (props.section === 0) return
 
   if (props.section === 1) {
     return (
       <div className="wrapper form__result-button-wrapper">
-        <button type="submit" onClick={(e) => submitButtonGetResult(e, props, winner, setWinner)}>Get the result</button>
-      </div>
-    )
-  }
-
-  if (props.section === 2) {
-    return (
-      <div className="wrapper form__result-button-wrapper">
-        <button type="reset" onClick={resetForm}>Start again</button>
+        <button type="submit" onClick={(e) => submitButtonGetResult(e, props)}>Get the result</button>
       </div>
     )
   }
 }
 
-const renderResult = (winner, section) => {
+const renderResetButton = (props, setPros, setCons) => {
+  if (props.section === 2) {
+    return (
+      <div className="wrapper form__result-button-wrapper">
+        <button type="reset" onClick={() => clear(props.resetForm, setPros, setCons)}>Start again</button>
+      </div>
+    )
+  }
+}
+
+const renderResult = (section, totalPros, totalCons) => {
   if (section !== 2) return
 
-  if (winner === 'equal') {
+  if (totalPros === totalCons) {
     return (
       <div className="wrapper result">
         <h3 className="result__heading">Result:</h3>
@@ -60,18 +66,18 @@ const renderResult = (winner, section) => {
     )
   }
 
-  if (winner) {
-    return (
-      <div className="wrapper result">
-        <h3 className="result__heading">Result:</h3>
-        <p className="result__text">The winner is <span>{winner}</span>.</p>
-      </div>
-    )
-  }
+  const winner = totalPros > totalCons ? 'pros' : 'cons'
+
+  return (
+    <div className="wrapper result">
+      <h3 className="result__heading">Result:</h3>
+      <p className="result__text">The winner is <span>{winner}</span>.</p>
+    </div>
+  )
 }
 
-const renderCreate = (setPros, setCons, pros, cons, props) => {
-  if (props.section === 1) {
+const renderCreate = (setPros, setCons, pros, cons, section) => {
+  if (section === 1) {
     return (
       <div className="wrapper">
         <CreateNewItem onSubmit={(data) => onItemSubmit(setPros, setCons, pros, cons, data)}></CreateNewItem>
@@ -101,12 +107,17 @@ const renderList = (section, pros, cons, totalPros, totalCons, setPros, setCons)
   }
 }
 
-const FormAndList = (props) => {
-  const [pros, setPros] = useState([])
-  const [cons, setCons] = useState([])
-  const [winner, setWinner] = useState(null)
+const initialState = {
+  pros: [],
+  cons: [],
+  winner: null
+}
 
-  const { section, onSubmit, resetForm } = props
+const FormAndList = (props) => {
+  const [pros, setPros] = useState(initialState.pros)
+  const [cons, setCons] = useState(initialState.cons)
+
+  const { section, onSubmit } = props
 
   const totalPros = calculateTotal(pros, section)
   const totalCons = calculateTotal(cons, section)
@@ -116,10 +127,11 @@ const FormAndList = (props) => {
   return (
     <div>
       <ListTitle section={section} onSubmit={onSubmit} shouldShowText={listHasItems} />
-      {renderCreate(setPros, setCons, pros, cons, props)}
-      {renderResult(winner, section)}
+      {renderCreate(setPros, setCons, pros, cons, section)}
+      {renderResult(section, totalPros, totalCons)}
       {renderList(section, pros, cons, totalPros, totalCons, setPros, setCons)}
-      {renderButton(setWinner, pros, cons, props, resetForm)}
+      {renderButton(props)}
+      {renderResetButton(props, setPros, setCons)}
     </div>
   )
 }
