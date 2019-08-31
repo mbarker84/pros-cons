@@ -10,16 +10,18 @@ body {
 
 button {
 	background-color: $highlight;
+	color: $primary;
 	border: none;
 	border-radius: 0.4em;
 	padding: 0.5rem 1rem;
 	font-size: 1.2rem;
 	cursor: pointer;
-	transition: background-color 200ms;
+	transition: background-color 200ms, color 200ms;
 
 	&:hover,
 	&:focus {
-		background-color: darken($highlight, 20%);
+		background-color: $primary;
+		color: $highlight;
 	}
 
 	@media screen and (min-width: $lg) {
@@ -28,13 +30,21 @@ button {
 	}
 }
 
+.button--main {
+	@media screen and (min-width: $lg) {
+		font-size: 1.4rem;
+		padding: 0.9rem 3rem;
+		min-width: 15rem;
+	}
+}
+
 a {
-	color: $highlight;
+	color: $primary;
 	transition: color 200ms;
 
 	&:hover,
 	&:focus {
-		color: darken($highlight, 20%);
+		color: lighten($primary, 20%);
 	}
 }
 
@@ -45,12 +55,13 @@ input[type='number'] {
 	padding: 0.5rem 1rem;
 	border: none;
 	background-color: darken($bg, 3%);
-	border: 0.15rem solid lighten($bg, 40%);
+	border: 0.2rem solid $primary;
 	color: $text;
 	border-radius: 0.5rem;
+	font-weight: 700;
 
 	&:focus {
-		border-color: $title;
+		border-color: lighten($primary, 20%);
 	}
 
 	@media screen and (min-width: $lg) {
@@ -63,5 +74,5 @@ label,
 legend {
 	display: block;
 	margin-bottom: 0.5rem;
-	color: lighten($bg, 60%);
+	color: $primary;
 }

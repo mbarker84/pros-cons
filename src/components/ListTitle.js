@@ -11,7 +11,7 @@ const renderForm = (setTitle, setTitleSubmitted, props) => {
       <form className="list-title__form">
         <label className="list-title__label" htmlFor="formTitle">List title</label>
         <input className="list-title__input" type="text" id="formTitle" onChange={(event) => setTitle(event.target.value)} />
-        <button type="submit" onClick={(e) => {
+        <button className="button--main" type="submit" onClick={(e) => {
           e.preventDefault()
           props.onSubmit()
           setTitleSubmitted(true)

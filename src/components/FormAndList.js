@@ -38,7 +38,7 @@ const renderButton = (props) => {
   if (props.section === 1) {
     return (
       <div className="wrapper form__result-button-wrapper">
-        <button type="submit" onClick={(e) => submitButtonGetResult(e, props)}>Get the result</button>
+        <button className="button--main" type="submit" onClick={(e) => submitButtonGetResult(e, props)}>Get the result</button>
       </div>
     )
   }
@@ -48,7 +48,7 @@ const renderResetButton = (props, setPros, setCons) => {
   if (props.section === 2) {
     return (
       <div className="wrapper form__result-button-wrapper">
-        <button type="reset" onClick={() => clear(props.resetForm, setPros, setCons)}>Start again</button>
+        <button className="button--main" type="reset" onClick={() => clear(props.resetForm, setPros, setCons)}>Start again</button>
       </div>
     )
   }
@@ -126,9 +126,11 @@ const FormAndList = (props) => {
 
   return (
     <div>
-      <ListTitle section={section} onSubmit={onSubmit} shouldShowText={listHasItems} />
-      {renderCreate(setPros, setCons, pros, cons, section)}
-      {renderResult(section, totalPros, totalCons)}
+      <div className="top-section">
+        <ListTitle section={section} onSubmit={onSubmit} shouldShowText={listHasItems} />
+        {renderCreate(setPros, setCons, pros, cons, section)}
+        {renderResult(section, totalPros, totalCons)}
+      </div>
       {renderList(section, pros, cons, totalPros, totalCons, setPros, setCons)}
       {renderButton(props)}
       {renderResetButton(props, setPros, setCons)}

@@ -1,8 +1,5 @@
 .list-title {
 	text-align: center;
-	max-width: $wrapper;
-	margin: 0 auto;
-	padding: 2rem;
 }
 
 .list-title__label {
@@ -13,14 +10,10 @@
 input.list-title__input {
 	width: 100%;
 	padding: 1rem;
-	border: 0.2rem solid lighten($bg, 50%);
+	border: 0.2rem solid $primary;
 	border-radius: 0.8rem;
 	font-size: 1.4rem;
 	margin-bottom: 2rem;
-
-	&:focus {
-		border-color: $title;
-	}
 
 	@media (min-width: $sm) {
 		padding: 1rem 1.5rem;
@@ -31,15 +24,20 @@ input.list-title__input {
 }
 
 .list-title__heading {
+	margin: 0 0 1rem 0;
+
 	@media (min-width: $sm) {
 		font-size: 2.6rem;
 	}
 }
 
 .list-title__text {
+	max-width: 48ch;
+	margin: 0 auto 1rem;
+
 	@media (min-width: $sm) {
-		margin-bottom: 3rem;
-		font-size: 1.6rem;
+		margin: 0 auto 2rem;
+		font-size: 1.4rem;
 	}
 }
 
@@ -47,12 +45,14 @@ input.list-title__input {
 .list-title__text-block-enter {
 	opacity: 0;
 	transform: scaleY(0.9);
+	transform-origin: top center;
 }
 
 .list-title__text-block-enter-active {
 	opacity: 1;
 	transform: scaleY(1);
 	transition: opacity 300ms, transform 300ms;
+	transform-origin: top center;
 }
 
 .list-title__text-block-exit {
@@ -63,4 +63,9 @@ input.list-title__input {
 	opacity: 0;
 	transform: scaleY(0.9);
 	transition: opacity 300ms, transform 300ms;
+}
+
+.list-title__form button {
+	padding: 1.25rem 2rem;
+	width: 15rem;
 }

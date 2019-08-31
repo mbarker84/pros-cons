@@ -11,3 +11,20 @@
 .wrapper--large {
 	max-width: 85rem;
 }
+
+.top-section {
+	max-width: $wrapper;
+	margin: 0 auto 1rem auto;
+	padding: 1rem;
+
+	@media (min-width: $sm) {
+		border: 0.3rem solid;
+		box-shadow: 1rem 1rem;
+		margin: 0 auto 2rem auto;
+	}
+
+	@media (min-width: $lg) {
+		padding: 2rem 3rem;
+		margin: 0 auto 3rem auto;
+	}
+}
