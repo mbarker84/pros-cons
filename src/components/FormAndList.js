@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { CSSTransition } from 'react-transition-group'
 import CreateNewItem from './CreateNewItem'
 import List from './List'
 import ListTitle from './ListTitle'
@@ -54,24 +55,34 @@ const renderResetButton = (props, setPros, setCons) => {
   }
 }
 
-const renderResult = (section, totalPros, totalCons) => {
+const renderResult = (section, totalPros, totalCons, isLoading) => {
   if (section !== 2) return
+  if (isLoading) return
+
+  let content
+  const winner = totalPros > totalCons ? 'pros' : 'cons'
 
   if (totalPros === totalCons) {
-    return (
-      <div className="wrapper result">
-        <h3 className="result__heading">Result:</h3>
-        <p className="result__text">The lists are equal. Follow your heart.</p>
-      </div>
-    )
+    content = 'The lists are equal. Follow your heart.'
+  } else {
+    content = `The winner is <span>${winner}</span>.`
   }
-
-  const winner = totalPros > totalCons ? 'pros' : 'cons'
 
   return (
     <div className="wrapper result">
-      <h3 className="result__heading">Result:</h3>
-      <p className="result__text">The winner is <span>{winner}</span>.</p>
+      <CSSTransition
+        in={!isLoading}
+        timeout={400}
+        classNames="result__loader"
+        unmountOnExit
+      >
+        <div className="result__content">
+          <div>
+            <h3 className="result__heading">Result:</h3>
+            <p className="result__text">{content}</p>
+          </div>
+        </div>
+      </CSSTransition>
     </div>
   )
 }
@@ -107,29 +118,55 @@ const renderList = (section, pros, cons, totalPros, totalCons, setPros, setCons)
   }
 }
 
+const renderLoader = (isLoading) => {
+  return (
+    <CSSTransition
+      in={isLoading}
+      timeout={600}
+      classNames="result__loader"
+      unmountOnExit
+    >
+      <div className="result__content">
+        <p className="result__heading">Calculating result...</p>
+      </div>
+    </CSSTransition>
+  )
+}
+
 const initialState = {
   pros: [],
   cons: [],
-  winner: null
+  isLoading: false,
 }
 
 const FormAndList = (props) => {
   const [pros, setPros] = useState(initialState.pros)
   const [cons, setCons] = useState(initialState.cons)
+  const [isLoading, setIsLoading] = useState(initialState.isLoading)
 
   const { section, onSubmit } = props
 
   const totalPros = calculateTotal(pros, section)
   const totalCons = calculateTotal(cons, section)
 
-  const listHasItems = totalPros > 0 || totalCons > 0
+  useEffect(
+    () => {
+      if (section === 2) {
+        setIsLoading(true)
+        setTimeout(() => setIsLoading(false), 3000)
+      }
+    },
+    [section],
+  )
 
   return (
     <div>
       <div className="top-section">
-        <ListTitle section={section} onSubmit={onSubmit} shouldShowText={listHasItems} />
+        <ListTitle section={section} onSubmit={onSubmit} />
         {renderCreate(setPros, setCons, pros, cons, section)}
-        {renderResult(section, totalPros, totalCons)}
+        {renderResult(section, totalPros, totalCons, isLoading)}
+        {renderLoader(isLoading, setIsLoading)}
+
       </div>
       {renderList(section, pros, cons, totalPros, totalCons, setPros, setCons)}
       {renderButton(props)}

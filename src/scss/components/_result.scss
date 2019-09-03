@@ -22,3 +22,26 @@
 		text-decoration-color: $highlight;
 	}
 }
+
+.result__content {
+	min-height: 10rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Transition */
+.result__loader-enter {
+	opacity: 0;
+}
+.result__loader-enter-active {
+	opacity: 1;
+	transition: opacity 1000ms;
+}
+.result__loader-exit {
+	opacity: 1;
+}
+.result__loader-exit-active {
+	opacity: 0;
+	transition: opacity 1000ms;
+}
