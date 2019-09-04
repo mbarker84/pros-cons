@@ -60,18 +60,19 @@ const renderResult = (section, totalPros, totalCons, isLoading) => {
   if (isLoading) return
 
   let content
-  const winner = totalPros > totalCons ? 'pros' : 'cons'
+  const winner = totalPros > totalCons ? <span>pros</span> : <span>cons</span>
 
   if (totalPros === totalCons) {
-    content = 'The lists are equal. Follow your heart.'
+    content = <p className="result__text">The lists are equal. Follow your heart.</p>
   } else {
-    content = `The winner is <span>${winner}</span>.`
+    content = <p className="result__text">The winner is {winner}</p>
   }
 
   return (
     <div className="wrapper result">
       <CSSTransition
         in={!isLoading}
+        timeIn={400}
         timeout={400}
         classNames="result__loader"
         unmountOnExit
@@ -79,7 +80,7 @@ const renderResult = (section, totalPros, totalCons, isLoading) => {
         <div className="result__content">
           <div>
             <h3 className="result__heading">Result:</h3>
-            <p className="result__text">{content}</p>
+            {content}
           </div>
         </div>
       </CSSTransition>
